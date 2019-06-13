@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RTSPVE - Rooftop Solar Energy Estimator</title>
+
+    <script src="../assets/js/jquery-1.10.2.js"></script>
+    <script src="../assets/js/jqueryUi.js"></script>
+    <script src="../assets/js/openLayer.js"></script>
+    <script src="../assets/js/base.js"></script>
+    <script src="../assets/js/processImage.js"></script>
+    <script src="../assets/js/imageAlgo.js"></script>
+    <link href="../assets/css/master.css" rel="stylesheet"/>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKYjnqls1TKfoOfziQoqarZUPRo9rRDjA&libraries=places&callback=initAutocomplete"
+            async defer></script>
+
+
+</head>
+<body id="bodyWrapper">
+
+    <div class="container noPg">
+        <div id="header">
+            <div class="row">
+                   <div class="col-md-8">
+                       <img id="aepc-logo" src="../assets/img/aepc-logo-block.png" class="img-responsive" alt="AEPC"/>
+
+                   </div>
+
+                    <div class="col-md-4" id="remLogoBlock">
+                        <img id="gef-log" class="img-responsive" src="../assets/img/gef-logo.png" alt="GEF"/>
+                        <img id="undp-logo" class="img-responsive" src="../assets/img/undp-logo.png" alt="UNDP"/>
+                   </div>
+            </div>
+        </div>
+    </div>
+    <!-- header -->
+
+    <div class="container" >
+        <div class="row" id="tsSection">
+            <div class="col-md-4">
+                <!-- Ribbon header -->
+                <div class="rectangle">
+                    <a href="index.html">
+                        <h2>Rooftop Solar Energy Estimator</h2>
+                    </a>
+                </div>
+                <!-- Ribbon side-fold (left and right) -->
+                <div class="triangle-l"></div>
+            </div>
+
+            <div class="col-md-2">
+                <button style="outline:0;" onclick="javascript:introJs().setOption('showProgress', true).start();" type="button" class="btn btn-default btn-lg outO">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Instruction
+                </button>
+            </div>
+            <div class="col-md-5" >
+                <div id="locationField" >
+                    <div id="searchBlock">
+                        <div data-step="2" data-position="auto" data-intro="Use this input field to search different locations, and button to get the location on the map.">
+                            <div class="input-group">
+                                <div class="form-group has-feedback has-clear">
+                                    <input id="address"  type="text" class="form-control" id="exampleInput1" placeholder="Enter address here">
+                                    <span class="form-control-clear glyphicon glyphicon-remove form-control-feedback hidden"></span>
+                                </div>
+                                  <span class="input-group-btn">
+                                    <button id="searchButton" style="outline:0;" onclick="codeAddress()" type="button" class="btn btn-primary" id="exampleButton1">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+                                    </button>
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <a type="button" id="disclaimer" class="btn btn-primary" href="disclaimer.html">Disclaimer</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row"  id="processSection">
+            <h3>Disclaimer</h3>
+            <ul id="diclaimer_ul">
+               <li>
+                   Change in error ratio while changing the zoom level.
+               </li>
+                <li>
+                    Usable roof top area is based on only statistical analysis.
+                </li>
+                <li>
+                    Useful for areas that are covered by OSM.
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <!-- process -->
+
+
+<script type="application/javascript">
+    loadJS();
+    function loadJS() {
+        var jsElm = document.createElement("script");
+        jsElm.type = "application/javascript";
+        jsElm.src = "../assets/js/base.js";
+        document.body.appendChild(jsElm);
+    }
+
+</script>
+
+
+    <script>
+        $("#processMap").addClass("disabled");
+
+        $("#drawPoly").click(function(){
+            $("#processMap").removeClass("disabled");
+        });
+
+        $("#resetMap").click(function(){
+            $("#processMap").addClass("disabled");
+        });
+    </script>
+
+<script src="../assets/js/intro.js"></script>
+</body>
+</html>

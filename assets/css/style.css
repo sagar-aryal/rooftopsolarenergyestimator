@@ -1,0 +1,178 @@
+*{
+	padding:0;
+	margin:0;
+}
+body {
+	font: 16px Arial;
+}
+#disclaimer{
+    background: #afafaf;
+    border: none;
+    font-weight: bold;
+    position: relative;
+    top: 7px;
+    left: -10px;
+}
+ul#diclaimer_ul {
+    padding: 10px 25px;
+}
+ul#diclaimer_ul li {
+    line-height: 30px;
+}
+#bodyWrapper{
+    background: #fafafa;
+    padding: 5px;
+ }
+#header {
+    background: #f5f5f5;
+    border-bottom: 2px solid #c7c7c7;
+    padding: 10px 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 4px 4px 4px #ddd;
+}
+#header img {
+    display: inline-block;
+}
+#processSection {
+    background-color: #fff;
+    padding: 10px 10px;
+    box-shadow: 4px 4px 4px #ddd;
+}
+#resultRow {
+    background-color: #fff;
+
+    box-shadow: 4px 4px 4px #ddd;
+}
+
+#resultRowIn{
+    padding: 10px 10px;
+}
+#aepc-logo{
+    height: 140px;
+}
+img#undp-logo {
+    width: 94px;
+}
+img#gef-log {
+    width: 120px;
+}
+.noMg {
+	margin: 0;
+}
+.noPg {
+    padding: 0;
+}
+.red {
+  color: #ef2129;
+}
+#actionItems{
+    padding: 10px;
+    text-align: center;
+}
+#actionItems ul li {
+    margin: 20px;
+}
+#resultTitle {
+    background: #f5f5f5;
+    color: #444444;
+    font-size: 22px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.fntBold {
+    font-size: 18px;
+    font-weight: bold;
+}
+.wd100{
+    width: 100%;
+}
+.imgTitle {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+#locationField {
+    position: relative;
+}
+#autocomplete {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 99%;
+}
+#address td {
+    font-size: 10pt;
+}
+#locationField {
+
+}
+#address {
+    font-size: 16px;
+    border: 1px solid #b9b9b9;
+    height: 36px;
+}
+#searchButton {
+    background: #5db96c;
+    color: #fff;
+    padding: 7px 10px;
+    font-size: 16px;
+    border: none;
+}
+#tsSection{
+    padding: 12px 20px 10px 0px;
+    box-shadow: 4px 4px 4px #ddd;
+    background: #fafafa;
+    border-bottom: 1px solid #eaeaea;
+}
+#searchBlock{
+    position: relative;
+    top: 6px;
+}
+.outO{
+    outline: 0;
+}
+#processMap{
+    outline: 0;
+}
+.rectangle {
+    background: #6786ad;
+    width: 100%;
+    position: relative;
+    left: -23px;
+    top: 0px;
+    float: left;
+    z-index: 100;
+}
+.rectangle h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.triangle-l {
+    border-color: transparent #636363 transparent transparent;
+    border-style: solid;
+    border-width: 15px;
+    height: 0px;
+    width: 0px;
+    position: relative;
+    left: -38px;
+    top: 26px;
+    z-index: -1;
+}
+div#remLogoBlock img {
+    float: right;
+}
+
+::-ms-clear {
+    display: none;
+}
+
+.form-control-clear {
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+}
+

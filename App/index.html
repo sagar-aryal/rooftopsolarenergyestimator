@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RTSEE</title>
+
+    <script src="../assets/js/jquery-1.10.2.js"></script>
+    <script src="../assets/js/jqueryUi.js"></script>
+    <script src="../assets/js/openLayer.js"></script>
+    <script src="../assets/js/base.js"></script>
+    <script src="../assets/js/processImage.js"></script>
+    <script src="../assets/js/imageAlgo.js"></script>
+    <link href="../assets/css/master.css" rel="stylesheet"/>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKYjnqls1TKfoOfziQoqarZUPRo9rRDjA&libraries=places&callback=initAutocomplete"
+            async defer></script>
+
+
+</head>
+<body id="bodyWrapper">
+
+    <div class="container noPg">
+        <div id="header">
+            <div class="row">
+                   <div class="col-md-8">
+
+                       <img id="aepc-logo" src="../assets/img/aepc-logo-block.png" class="img-responsive" alt="AEPC"/>
+
+                   </div>
+
+                    <div class="col-md-4" id="remLogoBlock">
+                        <img id="gef-log" class="img-responsive" src="../assets/img/gef-logo.png" alt="GEF"/>
+                        <img id="undp-logo" class="img-responsive" src="../assets/img/undp-logo.png" alt="UNDP"/>
+                   </div>
+            </div>
+        </div>
+    </div>
+    <!-- header -->
+
+    <div class="container" >
+        <div class="row" id="tsSection">
+            <div class="col-md-4">
+                <!-- Ribbon header -->
+                <div class="rectangle">
+                    <a href="index.html">
+                    <h2>Rooftop Solar Energy Estimator</h2>
+                        </a>
+                </div>
+                <!-- Ribbon side-fold (left and right) -->
+                <div class="triangle-l"></div>
+            </div>
+
+            <div class="col-md-2">
+                <button style="outline:0;" onclick="javascript:introJs().setOption('showProgress', true).start();" type="button" class="btn btn-default btn-lg outO">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Instruction
+                </button>
+            </div>
+            <div class="col-md-5" >
+                <div id="locationField" >
+                    <div id="searchBlock">
+                        <div data-step="2" data-position="auto" data-intro="Use this input field to search different locations, and button to get the location on the map.">
+                            <div class="input-group">
+                                <div class="form-group has-feedback has-clear">
+                                    <input id="address"  type="text" class="form-control" id="exampleInput1" placeholder="Enter address here">
+                                    <span class="form-control-clear glyphicon glyphicon-remove form-control-feedback hidden"></span>
+                                </div>
+                                  <span class="input-group-btn">
+                                    <button id="searchButton" style="outline:0;" onclick="codeAddress()" type="button" class="btn btn-primary" id="exampleButton1">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+                                    </button>
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <a type="button" id="disclaimer" class="btn btn-primary" href="disclaimer.html">Disclaimer</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row"  id="processSection">
+
+            <div class="col-md-10 noPg">
+            <div  data-step="1" data-position="top" data-intro="This is Open Street Map where Rooftop view of buildings are shown."   id="openMap">
+                <canvas id="destinationCanvas" class="hide"></canvas>
+                <div id="basicMap"></div>
+            </div>
+            </div>
+
+            <div class="col-md-2" id="actionItems">
+
+                <ul id="controlToggle" style="list-style: none">
+                    <li>
+                        <button style="outline:0;" data-step="3" data-position="auto" data-intro="Use this button to draw a polygon on the Open Street Map." type="button" class="btn btn-default btn-lg outO" id="drawPoly">
+                            <span  class="glyphicon glyphicon-play" aria-hidden="true"></span> Start
+                        </button>
+                    </li>
+                    <li>
+                        <button style="outline:0;" data-step="4" data-position="auto" data-intro="Use this button reset the polygon drawing process." type="button" class="btn btn-default btn-lg outO" id="resetMap">
+                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reset
+                        </button>
+                    </li>
+                    <li>
+                        <button style="outline:0;" data-step="5" data-position="auto" data-intro="Use this button to process the rooftop area within the polygon. This button only activates after you click on the 'Start' button." type="button" id="processMap"  class="btn btn-default btn-lg" onclick="uploadImageData()">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Process
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- process -->
+
+    <div  class="container" id="resultRow">
+        <div id="resultRowIn">
+            <div id="resultTitle" class="row">
+                <span class="glyphicon glyphicon-list fntBold" aria-hidden="true"></span> Result
+            </div>
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading fntBold" id="slider-header">Roof Top Usage</div>
+                        <div class="panel-body">
+                            <div id="slider-3">
+
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading fntBold" >Roof Top Area <sub>m<sup>2</sup></sub></div>
+                    <div class="panel-body noPg">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" style="margin: 0 ">
+                                <thead>
+                                <tr>
+                                    <th>Total Roof Top Area(m<sup>2</sup>)</th>
+                                    <th>Usable Roof Top Area(m<sup>2</sup>)</th>
+                                    <th>Roof Top Usage(%)</th>
+                                    <th>Number of Building</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" id="totalArea" readonly class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" id="usageAreaIs" readonly class="form-control" value="0">
+                                    </td>
+                                    <td>
+                                        <input type="text" id="usage" readonly class="form-control" value="0">
+                                    </td>
+                                    <td>
+                                        <input type="text" id="totalBuildings" readonly class="form-control" value="0">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading fntBold">Energy Generated <sub>monthly KWH</sub></div>
+                    <div class="panel-body noPg">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" style="margin: 0 ">
+                                <thead>
+                                <tr>
+                                    <th>January</th>
+                                    <th>February</th>
+                                    <th>March</th>
+                                    <th>April</th>
+                                    <th>May</th>
+                                    <th>June</th>
+                                    <th>July</th>
+                                    <th>August</th>
+                                    <th>September</th>
+                                    <th>October</th>
+                                    <th>November</th>
+                                    <th>December</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="text" id="0" readonly name="jan" class="form-control"/></td>
+                                    <td><input type="text" id="1" readonly name="feb" class="form-control"/></td>
+                                    <td><input type="text" id="2" readonly name="mar" class="form-control"/></td>
+                                    <td><input type="text" id="3" readonly name="apr" class="form-control"/></td>
+                                    <td><input type="text" id="4" readonly name="may" class="form-control"/></td>
+                                    <td><input type="text" id="5" readonly name="jun" class="form-control"/></td>
+                                    <td><input type="text" id="6" readonly name="jul" class="form-control"/></td>
+                                    <td><input type="text" id="7" readonly name="aug" class="form-control"/></td>
+                                    <td><input type="text" id="8" readonly name="sep" class="form-control"/></td>
+                                    <td><input type="text" id="9" readonly name="oct" class="form-control"/></td>
+                                    <td><input type="text" id="10" readonly name="nov" class="form-control"/></td>
+                                    <td><input type="text" id="11" readonly name="dec" class="form-control"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-6">
+                    <p class="imgTitle">Original Image</p>
+                    <img class="wd100" id="originalImage"/>
+                </div>
+                <div class="col-md-6">
+                    <p class="imgTitle">Processed Image</p>
+                    <img id="processedImage" class="wd100"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<!-- result -->
+
+<script type="application/javascript">
+    loadJS();
+    function loadJS() {
+        var jsElm = document.createElement("script");
+        jsElm.type = "application/javascript";
+        jsElm.src = "../assets/js/base.js";
+        document.body.appendChild(jsElm);
+    }
+
+</script>
+
+
+    <script>
+       $("#processMap").addClass("disabled");
+
+        $("#drawPoly").click(function(){
+            $("#processMap").removeClass("disabled");
+        });
+
+        $("#resetMap").click(function(){
+            $("#processMap").addClass("disabled");
+        });
+    </script>
+
+<script src="../assets/js/intro.js"></script>
+
+</body>
+</html>
